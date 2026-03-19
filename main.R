@@ -9,7 +9,7 @@ if(!require(readxl)) install.packages('readxl'); library(readxl)
 if(!require(urca)) install.packages('urca'); library(urca)
 if(!require(tseries)) install.packages('tseries'); library(tseries)
 if(!require(lubridate))install.packages('lubridate');library(lubridate)
-
+if(!require(zoo))install.packages("zoo");library(zoo)
 #---- Import functions ----
 # 1. Data preprocessing
 source("functions/data_preprocessing/stationarity_analysis.R")
@@ -104,9 +104,9 @@ plot_comparison_pdf <- function(countries_raw, countries_statio, series_name, ty
 plot_comparison_pdf(countries, data_statio, "Total expenditure", "Expenditures")
 plot_comparison_pdf(countries, data_statio, "Total revenue", "Revenues")
 
-# Test for the ragged edge dataset builder
+# Test for the ragged edge dataset
 df_publi_delay <- read_excel("data/publication_delay.xlsx", sheet = "Italy")
 test_df <- data_italy[["Revenues"]]
 test_df_ragged <- ragged_edge_dataset(test_df, df_publi_delay)
-# Pour l'output, jsp si on est censé avoir une série sans NA (==> ffill comme des bourrins
-# ou si c'est osef)
+test_df_rolling <- available_data(test_df_ragged, 36, test_df_ragged[48,1], method = "rolling")
+test_df_expanding <- available_data(test_df_ragged, 36, test_df_ragged[48,1], method = "expanding")
