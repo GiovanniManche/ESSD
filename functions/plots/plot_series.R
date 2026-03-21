@@ -1,4 +1,6 @@
-plot_series_pdf <- function(df_raw, df_stat, country_name, type = "Revenues") {
+plot_series_pdf <- function(df_raw, df_stat, country_name, 
+                            type = "Revenues", file_prefix = "Statio",
+                            suffix_graph = "Stationarity") {
   # Function to plot the raw series and their stationarized version
   # and save them in a PDF file
   
@@ -8,7 +10,7 @@ plot_series_pdf <- function(df_raw, df_stat, country_name, type = "Revenues") {
   numeric_cols <- names(df_raw)[is_num_col]
   series_names <- setdiff(numeric_cols, "Dates")
   
-  pdf_name <- file.path("graphs", paste0("Statio_", country_name, "_", type, ".pdf"))
+  pdf_name <- file.path("graphs", paste0(file_prefix, '_', country_name, "_", type, ".pdf"))
   pdf(file = pdf_name, width = 12, height = 8)
   
   # 3 variables (6 plots per page
@@ -39,7 +41,7 @@ plot_series_pdf <- function(df_raw, df_stat, country_name, type = "Revenues") {
       text(0.5, 0.5, "100% NA", col = "red", cex = 1.5)
     } else {
       plot(dates[idx_stat], x_stat[idx_stat], type = "l",
-           main = paste(s, "- Stationary"), xlab = "", ylab = "", col = "darkorange")
+           main = paste(s, "- ", suffix_graph), xlab = "", ylab = "", col = "darkorange")
     }
   }
   
@@ -48,7 +50,10 @@ plot_series_pdf <- function(df_raw, df_stat, country_name, type = "Revenues") {
   cat("Plots saved in:", pdf_name, "\n")
 }
 
-plot_country_pdf <- function(country_data, country_stat, country_name) {
-  plot_series_pdf(country_data$Revenues,     country_stat$Revenues,     country_name, "Revenues")
-  plot_series_pdf(country_data$Expenditures, country_stat$Expenditures, country_name, "Expenditures")
+plot_country_pdf <- function(country_data, country_stat, country_name, 
+                             file_prefix = "Statio", suffix_graph = "Stationary") {
+  plot_series_pdf(country_data$Revenues,     country_stat$Revenues,     country_name, "Revenues", 
+                  file_prefix, suffix_graph)
+  plot_series_pdf(country_data$Expenditures, country_stat$Expenditures, country_name, "Expenditures", 
+                  file_prefix, suffix_graph)
 }

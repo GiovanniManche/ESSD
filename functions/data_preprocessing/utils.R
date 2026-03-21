@@ -145,7 +145,7 @@ date_interval_builder <- function(date_init, date_terminal){
   current_date <- date_modifyer(date_init, days=days)
   vect_date <- c()
   # Loop to get all dates between current and terminal for chosen format
-  while(current_date<date_terminal){
+  while(current_date<=date_terminal){
     vect_date <- append(vect_date, current_date)
     current_date <- date_modifyer(current_date, days = days, month = 1)
   }
