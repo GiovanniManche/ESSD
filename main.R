@@ -1,39 +1,40 @@
 #---- Cleaning ----
 rm(list=ls())
 graphics.off()
-setwd(dir=dirname(rstudioapi::getSourceEditorContext()$path))
 
 #---- Packages ----
-if(!require(rstudioapi)) install.packages('rstudioapi'); library(rstudioapi)
+if(!require(here)) install.packages('here'); library(here)
 if(!require(readxl)) install.packages('readxl'); library(readxl)
 if(!require(urca)) install.packages('urca'); library(urca)
 if(!require(tseries)) install.packages('tseries'); library(tseries)
-if(!require(lubridate))install.packages('lubridate');library(lubridate)
-if(!require(zoo))install.packages("zoo");library(zoo)
+if(!require(lubridate)) install.packages('lubridate'); library(lubridate)
+if(!require(zoo)) install.packages("zoo"); library(zoo)
+
 #---- Import functions ----
+
 # 1. Data preprocessing
-source("functions/data_preprocessing/stationarity_analysis.R")
-source("functions/data_preprocessing/dickey_fuller_table.R")
-source("functions/data_preprocessing/stationarization_scheme.R")
-source("functions/data_preprocessing/vintage_transformation.R")
-source("functions/data_preprocessing/utils.R")
+source(here("functions/data_preprocessing/stationarity_analysis.R"))
+source(here("functions/data_preprocessing/dickey_fuller_table.R"))
+source(here("functions/data_preprocessing/stationarization_scheme.R"))
+source(here("functions/data_preprocessing/vintage_transformation.R"))
+source(here("functions/data_preprocessing/utils.R"))
 
 # 2. Plots
-source("functions/plots/plot_series.R")
+source(here("functions/plots/plot_series.R"))
 
 #---- Import raw data by countries ----
-# We suppose that data per country is in "data_country.xlsx"
-files <- list.files("data", pattern = "\\.xlsx$", full.names = TRUE)
+# We suppose that data per country is in "data/data_country.xlsx"
+files <- list.files(here("data"), pattern = "\\.xlsx$", full.names = TRUE)
 for (f in files) {
   base_name <- tools::file_path_sans_ext(basename(f))
-  if(grepl("data",base_name)){
+  if (grepl("data", base_name)) {
     name_of_country <- paste0("data_", sub("^data_", "", base_name))
     sheets_of_country <- list(
       Revenues     = read_excel(f, sheet = "Revenues"),
       Expenditures = read_excel(f, sheet = "Expenditures")
     )
     assign(name_of_country, sheets_of_country, envir = .GlobalEnv)
-  }else{
+  } else {
     next
   }
 }
@@ -44,69 +45,25 @@ countries <- list(
   Spain   = data_spain
 )
 
-# ---- Stationarity analysis ----
+#---- Stationarity analysis ----
 results_ADF <- lapply(countries, get_results_ADF_per_country)
-data_statio <- mapply(stationarize_country, 
-                           country_data = countries, 
-                           country_diag = results_ADF, 
-                           SIMPLIFY = FALSE)
+data_statio <- mapply(stationarize_country,
+                      country_data = countries,
+                      country_diag = results_ADF,
+                      SIMPLIFY = FALSE)
+
 # Plot raw series and stationarized versions
 mapply(plot_country_pdf,
        country_data = countries,
        country_stat = data_statio,
        country_name = names(countries))
 
-
-plot_comparison_pdf <- function(countries_raw, countries_statio, series_name, type = "Revenues") {
-  
-  pdf_name <- file.path("graphs", paste0("Comparison_", series_name, ".pdf"))
-  dir.create("graphs", showWarnings = FALSE)
-  pdf(file = pdf_name, width = 14, height = 10)
-  
-  # 4 pays x 2 (raw + statio) = 8 plots 
-  par(mfrow = c(4, 2), mar = c(3, 3, 3, 1), oma = c(0, 0, 3, 0))
-  
-  for (country_name in names(countries_raw)) {
-    df_raw  <- countries_raw[[country_name]][[type]]
-    df_stat <- countries_statio[[country_name]][[type]]
-    
-    dates    <- df_raw$Dates
-    x_raw    <- df_raw[[series_name]]
-    x_stat   <- df_stat[[series_name]]
-    
-    idx_raw  <- !is.na(x_raw)
-    idx_stat <- !is.na(x_stat)
-    
-    # --- Raw ---
-    if (sum(idx_raw) == 0) {
-      plot.new(); title(main = paste(country_name, "-", series_name, "- Raw"))
-      text(0.5, 0.5, "100% NA", col = "red", cex = 1.5)
-    } else {
-      plot(dates[idx_raw], x_raw[idx_raw], type = "l", col = "steelblue",
-           main = paste(country_name, "- Raw"), xlab = "", ylab = "")
-    }
-    
-    # --- Stationary ---
-    if (sum(idx_stat) == 0) {
-      plot.new(); title(main = paste(country_name, "-", series_name, "- Stationary"))
-      text(0.5, 0.5, "100% NA", col = "red", cex = 1.5)
-    } else {
-      plot(dates[idx_stat], x_stat[idx_stat], type = "l", col = "darkorange",
-           main = paste(country_name, "- Stationary"), xlab = "", ylab = "")
-    }
-  }
-  
-  mtext(paste(series_name), outer = TRUE, cex = 1.2, line = 1)
-  dev.off()
-  cat("Saved:", pdf_name, "\n")
-}
-
 plot_comparison_pdf(countries, data_statio, "Total expenditure", "Expenditures")
 plot_comparison_pdf(countries, data_statio, "Total revenue", "Revenues")
 
-# Test for the ragged edge dataset
-df_publi_delay <- read_excel("data/publication_delay.xlsx", sheet = "Italy")
-test_df <- data_italy[["Revenues"]]
-test_df_ragged <- ragged_edge_dataset(test_df, df_publi_delay)
-test_df_rolling <- available_data(test_df_ragged, 36, test_df_ragged[48,1], method = "rolling")
-test_df_expanding <- available_data(test_df_ragged, 36, test_df_ragged[48,1], method = "expanding")
+#---- Test for the ragged edge dataset ----
+df_publi_delay <- read_excel(here("data/publication_delay.xlsx"), sheet = "Italy")
+test_df        <- data_italy[["Revenues"]]
+test_df_ragged    <- ragged_edge_dataset(test_df, df_publi_delay)
+test_df_rolling   <- available_data(test_df_ragged, 36, test_df_ragged[48, 1], method = "rolling")
+test_df_expanding <- available_data(test_df_ragged, 36, test_df_ragged[48, 1], method = "expanding")
