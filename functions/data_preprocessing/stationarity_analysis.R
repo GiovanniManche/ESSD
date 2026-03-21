@@ -121,34 +121,3 @@ get_results_ADF_per_country <- function(country_list) {
   
   return(output_list)
 }
-
-
-# # Test (à supp)
-# set.seed(42)
-# n <- 200
-# 
-# # I(1) + c + T : marche aléatoire avec drift et tendance
-# ts_I1_cT <- cumsum(rnorm(n, mean = 0.5, sd = 1) + 0.05 * (1:n))
-# 
-# # I(1) + c : marche aléatoire avec drift
-# ts_I1_c  <- cumsum(rnorm(n, mean = 0.5, sd = 1))
-# 
-# # I(1) : marche aléatoire pure
-# ts_I1    <- cumsum(rnorm(n, sd = 1))
-# 
-# # I(0) + c + T : AR(1) stationnaire autour d'une tendance
-# ts_I0_cT <- arima.sim(model = list(ar = 0.7), n = n) + 0.1 * (1:n)
-# 
-# # I(0) + c : AR(1) stationnaire autour d'une constante
-# ts_I0_c  <- arima.sim(model = list(ar = 0.7), n = n) + 5
-# 
-# # I(0) : AR(1) stationnaire centré
-# ts_I0    <- arima.sim(model = list(ar = 0.7), n = n)
-# 
-# # ── Tests ──
-# cat("I(1) + c + T :", ADF_series(ts_I1_cT), "\n")
-# cat("I(1) + c     :", ADF_series(ts_I1_c),  "\n")
-# cat("I(1)         :", ADF_series(ts_I1),    "\n")
-# cat("I(0) + c + T :", ADF_series(ts_I0_cT), "\n")
-# cat("I(0) + c     :", ADF_series(ts_I0_c),  "\n")
-# cat("I(0)         :", ADF_series(ts_I0),    "\n")

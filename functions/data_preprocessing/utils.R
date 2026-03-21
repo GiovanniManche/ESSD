@@ -97,21 +97,6 @@ expanding_available_data <- function(df_ragged, date_end){
   return(df_expanding_val)
 }
 
-# Test for the function
-df <- data.frame(
-  var1 = c(1, 2, NA, 4, 5, 6),  
-  var2 = c(10, NA, 20, NA, 30, 40), 
-  var3 = c(NA, NA, 100, 200, NA, NA) 
-)
-
-# Comparison of the result with expected
-mat_function <- available_data(df, n = 3)
-mat_expected <- cbind(c(4,5,6), c(20,30,40))
-if(sum(isFALSE(mat_function==mat_expected)) == 0){
-  print("Test ok for function available_data")
-}else{
-  error("Error with function available_data")
-}
 # Function to modify a date arbitrarily with named argument day, month, year
 date_modifyer <- function(date, days=0, month=0, year=0){
   # Modification of the date
@@ -149,9 +134,6 @@ get_thursday <- function(date, day = 5, position = "last") {
   }
 }
 
-get_thursday(as.Date("2026-03-01"), position = "first") 
-get_thursday(as.Date("2026-03-01"), position = "last") 
-
 # Function to build a monthly vector of date between an init and a terminal date
 # The dates considered are arbitrarily of the following form: 01/mm/yyyy
 date_interval_builder <- function(date_init, date_terminal){
@@ -169,4 +151,3 @@ date_interval_builder <- function(date_init, date_terminal){
   }
   return(vect_date)
 }
-test <- date_interval_builder(test_df_ragged[2,1], test_df_ragged[nrow(test_df_ragged),1])
