@@ -33,7 +33,7 @@ get_DF_crit_val_signif <- function(table_col, n_obs, level = "p5") {
       p10  = c(2.85, 2.81, 2.79, 2.79, 2.78, 2.78)
     )
   )
-
+  
   ns <- df_table[[table_col]]$n
   cvals <- df_table[[table_col]][[level]]
   # We take the critical value corresponding to the 

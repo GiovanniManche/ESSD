@@ -3,16 +3,14 @@ diff_sparse <- function(x) {
   idx <- which(!is.na(x))
   
   if (length(idx) > 1) {
-    gaps <- diff(idx)  # écart en nombre de lignes entre valeurs consécutives
+    gaps <- diff(idx)  
     
     for (k in 2:length(idx)) {
       gap <- idx[k] - idx[k-1]
       
       if (gap == 1 || gap == 3) {
-        # Mensuel (gap=1) ou trimestriel régulier (gap=3)
         out[idx[k]] <- x[idx[k]] - x[idx[k-1]]
       } else {
-        # Gap inexpliqué → NA pour cette diff
         out[idx[k]] <- NA
       }
     }

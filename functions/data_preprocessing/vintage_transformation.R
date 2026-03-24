@@ -71,7 +71,11 @@ publication_date_shifter <- function(df_serie, df_publi){
     date_vector_publi <- get_thursday(date_vector, position="last")
   }else{
     days <- as.numeric(days)
-    date_vector_publi <- date_modifyer(date_vector, days=days, month = months)
+    if (days == 0 && months == 0) {
+      date_vector_publi <- date_vector 
+    } else {
+      date_vector_publi <- date_modifyer(date_vector, days = days, month = months)
+    }
   }
   # We modify the index of the serie (after taking into account publication delay)
   #rownames(df_serie) <- date_vector_publi

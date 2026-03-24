@@ -31,17 +31,17 @@ rolling_available_data <- function(df, n){
     }else{
       return(NULL)
     }
-    })
-    
-    # We filter the list to only keep non null values (= column for which we 
-    # have observations)
-    list_available_data <- Filter(Negate(is.null), last_values)
-    
-    # We concatenate the vectors of the list to build our matrix
-    df_available_data <- as.data.frame(list_available_data)
-    # to only keep numerical values (= without date values)
-    # df_available_data <- df_available_data[,-1]
-    return(df_available_data)
+  })
+  
+  # We filter the list to only keep non null values (= column for which we 
+  # have observations)
+  list_available_data <- Filter(Negate(is.null), last_values)
+  
+  # We concatenate the vectors of the list to build our matrix
+  df_available_data <- as.data.frame(list_available_data)
+  # to only keep numerical values (= without date values)
+  # df_available_data <- df_available_data[,-1]
+  return(df_available_data)
 }
 
 # Functions to retrieve all past available values (per month) until a given date
@@ -53,7 +53,7 @@ rolling_available_data <- function(df, n){
 # - df_expanding_val: dataframe containing the values available up to a given point in time
 expanding_available_data <- function(df_ragged, date_end){
   # Sanity checks
-  if(date_end < df_ragged[1,1]){
+  if(date_end <= df_ragged[1,1]){
     stop("The terminal date must be at least superior to first date available")
   }else if(date_end > df_ragged[nrow(df_ragged),1]){
     stop("The terminal date must be inferior or equal to last date available")
@@ -121,7 +121,7 @@ get_thursday <- function(date, day = 5, position = "last") {
     # Number of days until next thursday
     diff <- (wday(first_date)+5) %% 7
     return(first_date + days(diff))
-     
+    
   }else if(position == "last"){
     # Last day of the month for our date
     last_day <- rollback(date + months(1))
