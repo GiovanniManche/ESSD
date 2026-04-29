@@ -151,3 +151,84 @@ date_interval_builder <- function(date_init, date_terminal){
   }
   return(vect_date)
 }
+
+# Function to transform a high-frequency serie to a lower-frequency for a given 
+# aggregating operation
+# Inputs:
+# - data: dataframe containing the data we want to aggregate
+# - current_date: date for which we need an aggregated data
+# - freq: freq for which we want the serie 
+# - op: type of operation to be performed (only mean implemented for this project)
+# Outputs:
+# - the aggregated value to associate with the current date
+
+rolling_window_aggregator <- function(data, current_date, freq, op = "mean"){
+  
+  # We determine the number of periods to shift for our aggregator
+  if(freq == "month"){
+    months <- -1
+    years <- 0
+  }else if(freq == "year"){
+    months <- 0
+    years <- -1
+  }else{
+    print(freq)
+    stop("Function not implemented for this frequency")
+  }
+  
+  # Ensure date column is Date
+  data[[1]] <- as.Date(data[[1]])
+  
+  # We get the previous relevant date to compute our aggregated serie
+  prec_date <- date_modifyer(current_date, month = months, year = years)
+  
+  # We filter the dataframe to keep all the available value between both periods
+  # for this function to work: date column must come first in the dataframe
+  data <- data[data[,1]>prec_date & data[,1]<=current_date, ]
+  
+  # We compute the aggregated value associated with the current period
+  if(op == "mean"){
+    agg_value <- mean(data[,2], na.rm = TRUE)
+  }else{
+    stop("Other operations not implemented")
+  }
+  
+  return(agg_value)
+}
+
+# Function to loop over all relevant date from a low frequency dataframe
+# in order to retrieve the associated aggregated feature from a high-frequency dataframe
+# Inputs:
+# -data_target: dataframe containing the date and feature with a low frequency
+# -data_feature: dataframe containing the feature at high frequency we must aggregate
+# -freq: the frequency of the series in data_target
+# Output:
+# -data_target with an additional columns corresponding to aggregated variable
+
+time_series_aggregator <- function(data_target, data_feature, freq){
+  # For this function to work propery, data_feature must be a (n,2) dataframe
+  # with first column containing dates and the second one containing the feature to aggregate
+  data[[colnames(data_feature)[2]]] <- NA 
+  
+  
+  # We ensure that the first column of data_target is indeed in date
+  data_target[[1]] <- as.Date(data_target[[1]])
+  
+  # we loop over all dates of data_target to get the aggregated feature
+  for(t in 1:nrow(data_target)){
+    current_date <- data_target[t,1]
+    data_target[t,ncol(data_target)] <-  rolling_window_aggregator(data_feature, current_date, freq)
+  }
+  return(data_target)
+}
+
+# Small function to get the column index of a dataframe
+get_col_index <- function(data, col_name){
+  idx <- which(colnames(data)==col_name)
+  
+  if(is.na(idx)){
+    stop(paste0("Column '", col_name, "' not found in the dataframe"))
+  }
+  
+  return(idx)
+}
