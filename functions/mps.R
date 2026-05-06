@@ -43,8 +43,5 @@ mps_builder <- function(data_assets){
 }
 
 # Test for this function
-test <- read_excel("data/EA-EMDP.xlsx", sheet = "emdp")
-df_monthly_mps <- mps_builder(test)
-
-# Test for aggregator function
-test_agg <- rolling_window_aggregator(df_monthly_mps, as.Date(df_monthly_mps[100,1]), freq = "month")
+# test <- read_excel("data/EA-EMDP.xlsx", sheet = "emdp")
+# df_mps <- mps_builder(test)

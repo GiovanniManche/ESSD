@@ -1,3 +1,38 @@
+# Intermediary function to select and retrieve the number of principal components
+# using the Bai & NG criteria
+factor_estimation <- function(X, kmax, fixed = F){
+  # Remove NA (CAUTION TO BE MODIFIED LATER VIA EM OR KF, TEMPORARY)
+  X_filled <- zoo::na.locf(X, na.rm = FALSE, fromLast = FALSE)
+  X_filled <- zoo::na.locf(X_filled, na.rm = FALSE, fromLast = TRUE)
+  
+  # Scaling
+  X_scaled <- scale(X_filled)
+
+  # We compute the factors
+  bn_out <- baing(X = X_scaled, kmax = kmax, jj = 2)
+  
+  # Get optimal number of factors via Bai Ng criterion
+  if(fixed == "F"){
+    nb_factors <- bn_out$ic1
+    
+    # Fallback to 1 factor if Bai-Ng selects 0
+    if (nb_factors == 0) {
+      nb_factors <- 1
+    }
+    
+  # Case where we apply this function to only retrieve the first factor
+  }else{
+    nb_factors <- 1
+  }
+
+  factors <- bn_out$Fhat[, 1:nb_factors, drop = FALSE]
+  if(fixed == F){
+    return(c("factors" = factors, "nb_factors" = nb_factors))
+  }else{
+    return(factors)
+  }
+}
+
 factor_midas <- function(df_input, kmax = 3, lags_factors = 2){
   # =========================================================================
   # DESCRIPTION
@@ -28,23 +63,28 @@ factor_midas <- function(df_input, kmax = 3, lags_factors = 2){
   Y_raw <- as.numeric(df[, 2])
   X_raw <- df[, -c(1, 2)]
   
+  # Modif avec fonction intermédiaire (si fonctionne)
+  res <- factor_estimation(X_raw, kmax)
+  factors <- res["factors"]
+  nb_factors <- res["nb_factors"]
+  
   # Remove NA (CAUTION TO BE MODIFIED LATER VIA EM OR KF, TEMPORARY)
-  X_filled <- zoo::na.locf(X_raw, na.rm = FALSE, fromLast = FALSE)
-  X_filled <- zoo::na.locf(X_filled, na.rm = FALSE, fromLast = TRUE)
-  
-  # Scaling
-  X_scaled <- scale(X_filled)
-  
-  # Get optimal number of factors via Bai Ng criterion
-  bn_out <- baing(X = X_scaled, kmax = kmax, jj = 2)
-  nb_factors <- bn_out$ic1
-  
-  # Fallback to 1 factor if Bai-Ng selects 0
-  if (nb_factors == 0) {
-    nb_factors <- 1
-  }
-  factors <- bn_out$Fhat[, 1:nb_factors, drop = FALSE]
-  
+  # X_filled <- zoo::na.locf(X_raw, na.rm = FALSE, fromLast = FALSE)
+  # X_filled <- zoo::na.locf(X_filled, na.rm = FALSE, fromLast = TRUE)
+  # 
+  # # Scaling
+  # X_scaled <- scale(X_filled)
+  # 
+  # # Get optimal number of factors via Bai Ng criterion
+  # bn_out <- baing(X = X_scaled, kmax = kmax, jj = 2)
+  # nb_factors <- bn_out$ic1
+  # 
+  # # Fallback to 1 factor if Bai-Ng selects 0
+  # if (nb_factors == 0) {
+  #   nb_factors <- 1
+  # }
+  # factors <- bn_out$Fhat[, 1:nb_factors, drop = FALSE]
+  # 
   # ---- Separate estimation and nowcast periods ----
   n_months_total <- nrow(factors)
   

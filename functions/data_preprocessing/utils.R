@@ -165,10 +165,10 @@ date_interval_builder <- function(date_init, date_terminal){
 rolling_window_aggregator <- function(data, current_date, freq, op = "mean"){
   
   # We determine the number of periods to shift for our aggregator
-  if(freq == "month"){
+  if(freq == "M"){
     months <- -1
     years <- 0
-  }else if(freq == "year"){
+  }else if(freq == "Y"){
     months <- 0
     years <- -1
   }else{
@@ -208,8 +208,7 @@ rolling_window_aggregator <- function(data, current_date, freq, op = "mean"){
 time_series_aggregator <- function(data_target, data_feature, freq){
   # For this function to work propery, data_feature must be a (n,2) dataframe
   # with first column containing dates and the second one containing the feature to aggregate
-  data[[colnames(data_feature)[2]]] <- NA 
-  
+  data_target[[colnames(data_feature)[2]]] <- NA 
   
   # We ensure that the first column of data_target is indeed in date
   data_target[[1]] <- as.Date(data_target[[1]])
@@ -219,6 +218,9 @@ time_series_aggregator <- function(data_target, data_feature, freq){
     current_date <- data_target[t,1]
     data_target[t,ncol(data_target)] <-  rolling_window_aggregator(data_feature, current_date, freq)
   }
+  
+  # We only keep dates for which all data are available
+  data_target <- data_target[!is.na(data_target[[ncol(data_target)]]), ]
   return(data_target)
 }
 
@@ -227,8 +229,62 @@ get_col_index <- function(data, col_name){
   idx <- which(colnames(data)==col_name)
   
   if(is.na(idx)){
-    stop(paste0("Column '", col_name, "' not found in the dataframe"))
+    stop(paste0("Column ", col_name, " not found in the dataframe"))
   }
   
   return(idx)
+}
+
+# Retrieve a subset of columns from a dataframe
+get_group_columns <- function(name_start, name_end, df){
+  # Error management
+  if((!name_start %in% colnames(df))|(!name_end %in% colnames(df))){
+    # Particular case we handle: TRNM_IT is not part of the dataset, we handly it manually
+    if(name_start=="TRNMN_IT"){
+      name_start <- "TRNCAG_IT"
+    # Other cases where the code may crash
+    }else{
+      stop("The columns must be part of the possible colnames")
+    }  
+  }
+  
+  # We retrieve the index for the starting column of our group
+  start_index <- get_col_index(df, name_start)
+  
+  # We retrieve the index for the ending column of our group
+  end_index <- get_col_index(df, name_end)
+  
+  # We retrieve all associated columns between both
+  vect_col <- colnames(df)[start_index:end_index]
+  return(vect_col)
+}
+
+# Function to stationarize data according to a particular stationarization scheme 
+# (as described in the EA-MD dataset)
+stationarization_proc <- function(vect_data, code){
+  
+  # We round the code
+  code <- round(code, 0)
+  
+  # We verify whether the code is valid
+  if(!code %in% c(0, 1,2,3,4,5)){
+    stop(paste0("Code ", code, " is not implemented in this function"))
+  }
+  
+  # We perform the associated transformation with all code
+  if(code == 0){
+    result <- vect_data
+  }else if(code==1){
+    result <- 100 * log(vect_data)
+  }else if(code == 2){
+    result <- c(NaN, 100*diff(log(vect_data), 1)) # We add a NaN to preserve the number of rows
+  }else if(code == 3){
+    result <- c(NaN, NaN, diff(log(vect_data),2))
+  }else if(code == 4){
+    result <- c(NaN, diff(vect_data, 1))
+    # Must be 5, otherwise would have triggered an error earlier
+  }else{
+    result <- c(NaN, NaN, diff(vect_data, 2))
+  }
+  return(result)
 }
