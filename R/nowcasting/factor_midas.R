@@ -8,6 +8,51 @@
 # monthly data, yielding monthly factors then used to predict a quarterly variable
 # using standard MIDAS polynomial regression.
 
+
+factor_estimation <- function(X, kmax, fixed = F){
+  # =========================================================================
+  # DESCRIPTION
+  # Function to estimate principal components.
+  # The optimal number of factors is given by a Bai-Ng criterion.
+  # -------------------------------------------------------------------------
+  # INPUTS
+  #     X       : matrix containing the standardized series on which we have to run PCAs. 
+  #               column (dates in first). 
+  #     kmax    : maximal number of factors
+  #     fixed   : False if the number of factors must be determined by Bai-Ng. 
+  #
+  # OUTPUT
+  #     factors : estimated PCs (+ number selected by Bai-Ng if relevant)
+  #
+  # -------------------------------------------------------------------------
+  # We compute the factors
+  bn_out <- baing(X = X, kmax = kmax, jj = 2)
+  
+  # Get optimal number of factors via Bai Ng criterion
+  if(fixed == "F"){
+    nb_factors <- bn_out$ic1
+    
+    # Fallback to 1 factor if Bai-Ng selects 0
+    if (nb_factors == 0) {
+      nb_factors <- 1
+    }
+    
+    # Case where we apply this function to only retrieve the first factor
+  }else{
+    nb_factors <- 1
+  }
+  
+  factors <- bn_out$Fhat[, 1:nb_factors, drop = FALSE]
+  if(fixed == F){
+    return(c("factors" = factors, "nb_factors" = nb_factors))
+  }else{
+    return(factors)
+  }
+}
+
+
+
+
 factor_midas <- function(df_input, kmax = 3, lags_factors = 2){
   # =========================================================================
   # DESCRIPTION
@@ -16,18 +61,18 @@ factor_midas <- function(df_input, kmax = 3, lags_factors = 2){
   # with the optimal number of factors defined by the Bai-Ng criterion. 
   # -------------------------------------------------------------------------
   # INPUTS
-  #     df_input: dataframe containing the series. Target variable should be in second 
+  #     df_input      : dataframe containing the series. Target variable should be in second 
   #               column (dates in first). 
-  #     kmax: maximal number of factors
-  #     lags_factors: number of lags to be used in the MIDAS regression for the factors
+  #     kmax          : maximal number of factors
+  #     lags_factors  : number of lags to be used in the MIDAS regression for the factors
   #                   ex: if = 2, take current, past month and month before (whole quarter)
   #
   # OUTPUTS
-  #     model: results of the MIDAS estimation
-  #     y_target: aligned quarterly target variable
-  #     nb_factors: number of factors given by Bai-Ng criterion
-  #     factors: nb_factors-first principal components
-  #     nowcast: out-of-sample nowcast for the current quarter
+  #     model         : results of the MIDAS estimation
+  #     y_target      : aligned quarterly target variable
+  #     nb_factors    : number of factors given by Bai-Ng criterion
+  #     factors       : nb_factors-first principal components
+  #     nowcast       : out-of-sample nowcast for the current quarter
   #
   # -------------------------------------------------------------------------
   
@@ -45,15 +90,9 @@ factor_midas <- function(df_input, kmax = 3, lags_factors = 2){
   # Scaling
   X_scaled <- scale(X_filled)
   
-  # Get optimal number of factors via Bai Ng criterion
-  bn_out <- baing(X = X_scaled, kmax = kmax, jj = 2)
-  nb_factors <- bn_out$ic1
-  
-  # Fallback to 1 factor if Bai-Ng selects 0
-  if (nb_factors == 0) {
-    nb_factors <- 1
-  }
-  factors <- bn_out$Fhat[, 1:nb_factors, drop = FALSE]
+  res <- factor_estimation(X_scaled, kmax)
+  factors <- res["factors"]
+  nb_factors <- res["nb_factors"]
   
   # Separate estimation and nowcast periods 
   n_months_total <- nrow(factors)

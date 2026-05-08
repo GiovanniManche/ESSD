@@ -95,7 +95,7 @@ sg_lasso_midas <- function(df_input,
   X_est <- X_est[valid_rows, , drop = FALSE]
   y_est <- y_est[valid_rows]
   
-
+  
   # Constant regressors cannot be standardized and are not informative
   # for the penalized regression, so we remove them
   valid_cols <- apply(X_est, 2, function(z) all(is.finite(z)) && sd(z, na.rm = TRUE) > 0)
@@ -409,7 +409,7 @@ build_legendre_midas_blocks <- function(midas_lags_obj,
   
   # Number of monthly observations in each MIDAS lag block
   jmax <- x_lags + 1
-
+  
   # The raw exogenous matrix should contain one lag block of length jmax
   # for each monthly predictor.
   if (ncol(X_exog_est_raw) != length(x_names) * jmax) {
