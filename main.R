@@ -52,6 +52,14 @@ source("scripts/04_forecast_metrics.R")
 # ---- 5. Computation of the surprise index ----
 source("scripts/05_surprise_index.R")
 
+# ---- Panel local projections ----
+source("scripts/06_panel_local_projections.R")
+
+# ---- 7. Fragmentation impact ----
+source("scripts/07_euro_area_analysis.R")
+
+
+
 # ---- Final Summary ----
 cat("\n======================================================")
 cat("\nPIPELINE EXECUTION FINISHED SUCCESSFULLY")

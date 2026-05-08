@@ -265,12 +265,12 @@ print(comparison_wide, row.names = FALSE)
 
 # ---- 6. Export metrics ----
 metrics_file <- here(
-  "outputs/tables",
+  "outputs/tables/nowcast_performances",
   paste0("forecast_metrics_", format(Sys.Date(), "%Y%m%d"), ".csv")
 )
 
 comparison_file <- here(
-  "outputs/tables",
+  "outputs/tables/nowcast_performances",
   paste0("forecast_metrics_wide_", format(Sys.Date(), "%Y%m%d"), ".csv")
 )
 
@@ -284,7 +284,7 @@ if (length(errors_list) > 0) {
   rownames(errors_by_date) <- NULL
   
   errors_file <- here(
-    "outputs/tables",
+    "outputs/tables/nowcast_performances",
     paste0("forecast_errors_by_date_", format(Sys.Date(), "%Y%m%d"), ".csv")
   )
   

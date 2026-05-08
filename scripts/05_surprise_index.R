@@ -138,7 +138,7 @@ df_all_surprises <- bind_rows(all_surprises)
 # ---- 2. Export raw surprises ----
 write.csv(
   df_all_surprises,
-  here("outputs/tables", "all_nowcast_surprises.csv"),
+  here("outputs/tables/index", "all_nowcast_surprises.csv"),
   row.names = FALSE
 )
 
@@ -385,7 +385,7 @@ write.csv(
   country_monthly_index_extended %>%
     select(country, model, block, year_month,
            mensual_surprise, surprise_zscore, climate_index_country),
-  here("outputs/tables", "country_monthly_surprise_index.csv"),
+  here("outputs/tables/index", "country_monthly_surprise_index.csv"),
   row.names = FALSE
 )
 
@@ -393,7 +393,7 @@ write.csv(
   euro_index %>%
     select(model, block, year_month, cross_sec_sd, cross_sec_sd_w,
            climate_index, fragmentation_index),
-  here("outputs/tables", "euro_area_indices.csv"),
+  here("outputs/tables/index", "euro_area_indices.csv"),
   row.names = FALSE
 )
 
@@ -551,7 +551,7 @@ cat(sprintf(">>> [Climate] Max decomposition residual: %.2e\n",
 
 write.csv(
   contributions_climate,
-  here("outputs/tables", "country_contributions_climate_index.csv"),
+  here("outputs/tables/index", "country_contributions_climate_index.csv"),
   row.names = FALSE
 )
 
@@ -681,7 +681,7 @@ cat(sprintf(">>> [Fragmentation] Max variance residual: %.2e\n",
 
 write.csv(
   contributions_frag %>% select(-date),
-  here("outputs/tables", "country_contributions_fragmentation_index.csv"),
+  here("outputs/tables/index", "country_contributions_fragmentation_index.csv"),
   row.names = FALSE
 )
 

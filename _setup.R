@@ -17,8 +17,16 @@ pacman::p_load(
   patchwork,
   midasr,     
   zoo,
-  midasml
+  midasml,
+  fixest,
+  sandwich,
+  lmtest,
+  purrr,
+  writexl
 )
+
+
+
 
 # ---- 2. Create structure ----
 dirs <- c(
@@ -27,11 +35,15 @@ dirs <- c(
   here("R/nowcasting"),
   here("R/plots"),
   here("R/preprocessing"),
+  here("R/MP"),
   here("outputs/figures/nowcast"),
   here("outputs/figures/surprises"),
-  here("outputs/tables"),
+  here("outputs/figures/index"),
+  here("outputs/figures/monetary_policy"),
+  here("outputs/tables/nowcast_performances"),
+  here("outputs/tables/index"),
+  here("outputs/tables/monetary_policy"),
   here("outputs/logs"),
-  here("results"),
   here("reports/"),
   here("scripts/")
 )

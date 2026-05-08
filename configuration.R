@@ -7,8 +7,8 @@
 
 
 # ---- 1. Pipeline switches ----
-REFRESH_CLEANING <- TRUE # TRUE = script 01 (data preprocessing) is launched 
-REFRESH_MODELS   <- TRUE # TRUE = script 02 (nowcasting estimates) is launched.
+REFRESH_CLEANING <- FALSE # TRUE = script 01 (data preprocessing) is launched 
+REFRESH_MODELS   <- FALSE # TRUE = script 02 (nowcasting estimates) is launched.
 
 # ---- 2. Nowcasting scope ----
 # Countries to nowcast
