@@ -1,0 +1,49 @@
+Sample;Metric;Country;Block;factor_midas;sg_lasso;ar1;rw;;Sample;all_vintages;;;;;;;;;
+all_vintages;RMSE;Germany;Revenues;9381,3747;9545,9941;7711,7308;11149,1102;;;;;;;;Sample;all_vintages;;;
+last_before_release;RMSE;Germany;Revenues;9685,301;9857,191;7753,3739;11120,7539;;Étiquettes de lignes;Moyenne de factor_midas;Moyenne de sg_lasso;Moyenne de ar1;Moyenne de rw;;;;;;
+all_vintages;RMSE;Germany;Expenditures;12766,9923;8759,5921;8692,5967;12583,1476;;MAE;4900,139188;4472,968213;4013,200288;5415,712563;;Étiquettes de lignes;Moyenne de factor_midas;Moyenne de sg_lasso;Moyenne de ar1;Moyenne de rw
+last_before_release;RMSE;Germany;Expenditures;13611,1955;9344,0184;8729,2285;12495,7886;;France;4085,79095;3825,98045;3955,37845;4889,86375;;France;7288,41365;7327,74855;7770,13225;9558,98525
+all_vintages;RMSE;France;Revenues;9514,5746;9777,3554;10075,4188;11945,201;;Expenditures;3221,5367;2969,7134;3182,9167;3816,7641;;RMSE;7288,41365;7327,74855;7770,13225;9558,98525
+last_before_release;RMSE;France;Revenues;5489,3273;9435,2928;10034,0433;11816,9187;;Revenues;4950,0452;4682,2475;4727,8402;5962,9634;;Germany;11074,1835;9152,7931;8202,16375;11866,1289
+all_vintages;RMSE;France;Expenditures;5062,2527;4878,1417;5464,8457;7172,7695;;Germany;7278,76435;5906,4;5364,2044;7440,50385;;RMSE;11074,1835;9152,7931;8202,16375;11866,1289
+last_before_release;RMSE;France;Expenditures;5505,2079;4218,1137;5468,15;7151,2243;;Expenditures;8477,3366;5686,7149;5885,6445;8229,9983;;Italy;7662,06785;7438,8721;6215,75225;8321,78285
+all_vintages;RMSE;Italy;Revenues;7261,799;6816,8836;4804,8785;5930,4004;;Revenues;6080,1921;6126,0851;4842,7643;6651,0094;;RMSE;7662,06785;7438,8721;6215,75225;8321,78285
+last_before_release;RMSE;Italy;Revenues;6241,0303;6800,1112;4818,3718;5952,2196;;Italy;4304,9833;4213,5642;3637,5691;5164,6967;;Spain;8104,4155;7384,4927;5137,69395;7442,09675
+all_vintages;RMSE;Italy;Expenditures;8062,3367;8060,8606;7626,626;10713,1653;;Expenditures;4446,4234;4497,4172;4022,9315;6066,57;;RMSE;8104,4155;7384,4927;5137,69395;7442,09675
+last_before_release;RMSE;Italy;Expenditures;8221,9627;8333,7111;7710,6022;10843,9981;;Revenues;4163,5432;3929,7112;3252,2067;4262,8234;;Total général;8532,270125;7825,976613;6831,43555;9297,248438
+all_vintages;RMSE;Spain;Revenues;4491,4632;5392,4462;4421,8741;6636,2654;;Spain;3931,01815;3945,9282;3095,6492;4167,78595;;;;;;
+last_before_release;RMSE;Spain;Revenues;3879,5353;4529,2171;4394,4297;6592,0489;;Expenditures;5499,9004;5153,3012;3554,6003;4866,0153;;;;;;
+all_vintages;RMSE;Spain;Expenditures;11717,3678;9376,5392;5853,5138;8247,9281;;Revenues;2362,1359;2738,5552;2636,6981;3469,5566;;;;;;
+last_before_release;RMSE;Spain;Expenditures;11560,7753;9422,8076;5966,1817;8457,654;;R2;-1,3052;-0,9098;-0,3452625;-1,4758375;;;;;;
+all_vintages;MAE;Germany;Revenues;6080,1921;6126,0851;4842,7643;6651,0094;;France;-0,4539;-0,4926;-0,69545;-1,6107;;;;;;
+last_before_release;MAE;Germany;Revenues;6709,2047;6371,9157;4848,5154;6643,0784;;Expenditures;-0,1874;-0,1437;-0,4354;-1,4727;;;;;;
+all_vintages;MAE;Germany;Expenditures;8477,3366;5686,7149;5885,6445;8229,9983;;Revenues;-0,7204;-0,8415;-0,9555;-1,7487;;;;;;
+last_before_release;MAE;Germany;Expenditures;8748,8548;5885,3002;5913,7123;8171,3725;;Germany;-0,94385;-0,38425;-0,09425;-1,2901;;;;;;
+all_vintages;MAE;France;Revenues;4950,0452;4682,2475;4727,8402;5962,9634;;Expenditures;-1,372;-0,1492;-0,1317;-1,3714;;;;;;
+last_before_release;MAE;France;Revenues;3916,6723;4539,4638;4733,6899;5949,5804;;Revenues;-0,5157;-0,6193;-0,0568;-1,2088;;;;;;
+all_vintages;MAE;France;Expenditures;3221,5367;2969,7134;3182,9167;3816,7641;;Italy;-1,20875;-0,96665;-0,2572;-1,1984;;;;;;
+last_before_release;MAE;France;Expenditures;3474,7192;2686,9003;3184,9939;3822,549;;Expenditures;-0,4071;-0,4066;-0,2591;-1,4845;;;;;;
+all_vintages;MAE;Italy;Revenues;4163,5432;3929,7112;3252,2067;4262,8234;;Revenues;-2,0104;-1,5267;-0,2553;-0,9123;;;;;;
+last_before_release;MAE;Italy;Revenues;3730,3589;3956,7926;3266,4083;4280,4332;;Spain;-2,6143;-1,7957;-0,33415;-1,80415;;;;;;
+all_vintages;MAE;Italy;Expenditures;4446,4234;4497,4172;4022,9315;6066,57;;Expenditures;-5,0295;-2,861;-0,5047;-1,9875;;;;;;
+last_before_release;MAE;Italy;Expenditures;4622,4961;4821,3892;4059,8036;6103,8754;;Revenues;-0,1991;-0,7304;-0,1636;-1,6208;;;;;;
+all_vintages;MAE;Spain;Revenues;2362,1359;2738,5552;2636,6981;3469,5566;;RMSE;8532,270125;7825,976613;6831,43555;9297,248438;;;;;;
+last_before_release;MAE;Spain;Revenues;2250,2822;2551,7167;2607,6535;3438;;France;7288,41365;7327,74855;7770,13225;9558,98525;;;;;;
+all_vintages;MAE;Spain;Expenditures;5499,9004;5153,3012;3554,6003;4866,0153;;Expenditures;5062,2527;4878,1417;5464,8457;7172,7695;;;;;;
+last_before_release;MAE;Spain;Expenditures;5749,7939;5453,3449;3621,4566;4944,5098;;Revenues;9514,5746;9777,3554;10075,4188;11945,201;;;;;;
+all_vintages;R2;Germany;Revenues;-0,5157;-0,6193;-0,0568;-1,2088;;Germany;11074,1835;9152,7931;8202,16375;11866,1289;;;;;;
+last_before_release;R2;Germany;Revenues;-0,5995;-0,7098;-0,0579;-1,1763;;Expenditures;12766,9923;8759,5921;8692,5967;12583,1476;;;;;;
+all_vintages;R2;Germany;Expenditures;-1,372;-0,1492;-0,1317;-1,3714;;Revenues;9381,3747;9545,9941;7711,7308;11149,1102;;;;;;
+last_before_release;R2;Germany;Expenditures;-1,7262;-0,3104;-0,1437;-1,3435;;Italy;7662,06785;7438,8721;6215,75225;8321,78285;;;;;;
+all_vintages;R2;France;Revenues;-0,7204;-0,8415;-0,9555;-1,7487;;Expenditures;8062,3367;8060,8606;7626,626;10713,1653;;;;;;
+last_before_release;R2;France;Revenues;0,4248;-0,7091;-0,9329;-1,6808;;Revenues;7261,799;6816,8836;4804,8785;5930,4004;;;;;;
+all_vintages;R2;France;Expenditures;-0,1874;-0,1437;-0,4354;-1,4727;;Spain;8104,4155;7384,4927;5137,69395;7442,09675;;;;;;
+last_before_release;R2;France;Expenditures;-0,4833;0,1292;-0,4634;-1,503;;Expenditures;11717,3678;9376,5392;5853,5138;8247,9281;;;;;;
+all_vintages;R2;Italy;Revenues;-2,0104;-1,5267;-0,2553;-0,9123;;Revenues;4491,4632;5392,4462;4421,8741;6636,2654;;;;;;
+last_before_release;R2;Italy;Revenues;-1,2292;-1,4919;-0,2511;-0,9092;;Total général;4477,034704;4099,345008;3614,763525;4903,828388;;;;;;
+all_vintages;R2;Italy;Expenditures;-0,4071;-0,4066;-0,2591;-1,4845;;;;;;;;;;;;
+last_before_release;R2;Italy;Expenditures;-0,4383;-0,4777;-0,265;-1,502;;;;;;;;;;;;
+all_vintages;R2;Spain;Revenues;-0,1991;-0,7304;-0,1636;-1,6208;;;;;;;;;;;;
+last_before_release;R2;Spain;Revenues;0,1067;-0,2175;-0,1462;-1,5792;;;;;;;;;;;;
+all_vintages;R2;Spain;Expenditures;-5,0295;-2,861;-0,5047;-1,9875;;;;;;;;;;;;
+last_before_release;R2;Spain;Expenditures;-4,5406;-2,6808;-0,4756;-1,9654;;;;;;;;;;;;
