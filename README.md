@@ -24,7 +24,7 @@ country dispersion of fiscal nowcast revisions.
 
 The project presentation video is available here:
 
-[Watch the presentation video](pessd_manim_video_vFinal/pessd_manim_video_vFinal.py)
+[Watch the presentation video](pessd_manim_video_vFinal/final_presentation_video_ESSD.mp4)
 
 This short video provides a simple and accessible overview of the project, explaining the main research question, the construction of the fiscal nowcasting and fragmentation indices, and their application to monetary policy transmission. We also include the Python script used to generate the video, so that the animation can be reproduced or modified if needed.
 
