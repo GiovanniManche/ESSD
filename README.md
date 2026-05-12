@@ -21,6 +21,9 @@ We define fiscal fragmentation as the divergence in fiscal conditions across mem
 country dispersion of fiscal nowcast revisions. 
 
 --- 
+<video src="pessd_manim_video_vFinal/final_presentation_video_ESSD.mp4" controls width="900"></video>
+
+
 ## Table of Contents
 
 1. [Quick Start](#1-quick-start)  
