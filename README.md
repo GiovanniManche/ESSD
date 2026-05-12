@@ -9,7 +9,7 @@
 ![Status](https://img.shields.io/badge/status-complete-brightgreen)
 > A multi-model nowcasting pipeline for quarterly government revenues and expenditures in Germany, France, Italy and Spain, with applications to the construction of a country-level Fiscal Surprise Index, a euro area Fiscal Fragmentation Index, and applications to monetary policy using high-frequency identification of monetary policy shocks.
 
-**Author:** Timothée Dangleterre, Nathan Granier and Giovanni Manche 
+**Author:** Timothée Dangleterre, Nathan Granier and Giovanni Manche  
 **Institution:** [ENSAE Paris](https://www.ensae.fr) | Institut Polytechnique de Paris  
 **Language:** R (≥ 4.1)  
 **Last updated:** May 2026
