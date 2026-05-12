@@ -15,7 +15,7 @@
 **Last updated:** May 2026
 
 
-This repository implements a pseudo-real-time fiscal nowcasting pipeline for the four largest euro area economies, constructz a  novel **Fiscal Fragmentation Index** and uses it to study its impact on the transmission of ECB monetary policy shocks.
+This repository implements a pseudo-real-time fiscal nowcasting pipeline for the four largest euro area economies, constructs a  novel **Fiscal Fragmentation Index** and uses it to study its impact on the transmission of ECB monetary policy shocks.
 
 We define fiscal fragmentation as the divergence in fiscal conditions across member states and measure it in real time using a novel index based on cross-
 country dispersion of fiscal nowcast revisions. 
@@ -313,6 +313,9 @@ The Fragmentation Index captures the **cross-country dispersion** of fiscal surp
 | **> 100** | Cross-country fiscal surprise dispersion higher than historical average (countries *diverging*) |
 | **< 100** | Dispersion lower than historical average (countries *converging*) |
 
+![Fragmentation Index](outputs/figures/index/fragmentation_index/fragmentation_index_sg_lasso_total.png)
+
+
 Country contributions to the underlying weighted variance are exactly additive:
 
 $$\sigma^2_{w,t} = \sum_c w_{c,t} \cdot (z_{c,t} - \bar{z}_{w,t})^2$$
@@ -323,8 +326,6 @@ where contributions are non-negative by construction (squared deviations weighte
 ![Contributions](outputs/figures/index/fragmentation_index/raw_dispersion/contributions_sg_lasso_total.png)
 
 
-### Fiscal Fragmentation Index
-![Fragmentation Index](outputs/figures/index/fragmentation_index/fragmentation_index_sg_lasso_total.png)
 
 
 ---
