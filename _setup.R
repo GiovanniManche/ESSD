@@ -60,4 +60,4 @@ if (dir.exists(here("R"))) {
 options(scipen = 999)      # No scientific writing 
 theme_set(theme_minimal()) # Default theme for ggplot2
 
-message(">>> Environment configuration succeded.")
+message(">>> Environment configuration succeeded.")
