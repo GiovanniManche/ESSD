@@ -73,7 +73,7 @@ for (block in list_blocks) {
   # Step E: 2x2 Grid 
   if (length(plot_list) > 0) {
     
-    # Patchwork magic: combine all plots in the list
+  # combine all plots in the list
     combined_plot <- wrap_plots(plot_list, ncol = 2) + 
       plot_annotation(
         title = paste("Nowcast vs Realized Series -", block),
