@@ -66,7 +66,8 @@ This executes scripts `03` through `07` (visualisation, forecast metrics, surpri
 
 ### Full re-estimation
 
-> **Warning.** Running the complete pseudo-real-time estimation loop across 4 countries × 2 fiscal blocks × 4 models is computationally intensive (approximately **5 hours** on a standard laptop). This is due to the rolling re-estimation required at every publication date in the pseudo-real-time framework. We strongly recommend using the pre-compiled `.rds` files unless parameter changes are specifically needed.
+> [!WARNING]
+> Running the complete pseudo-real-time estimation loop across 4 countries × 2 fiscal blocks × 4 models is computationally intensive, taking approximately **5 hours** on a standard laptop. We strongly recommend using the pre-compiled `.rds` files unless parameter changes are specifically needed.
 
 To re-run everything from scratch:
 
