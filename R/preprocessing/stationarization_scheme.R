@@ -69,7 +69,6 @@ stationarize_data <- function(df, diag_df) {
         x_statio <- rep(NA, n_obs)
       }
       
-      # On remplace la colonne brute par la colonne stationnarisée
       df_stat[[col_name]] <- x_statio
     }
   }
