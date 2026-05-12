@@ -319,8 +319,12 @@ $$\sigma^2_{w,t} = \sum_c w_{c,t} \cdot (z_{c,t} - \bar{z}_{w,t})^2$$
 
 where contributions are non-negative by construction (squared deviations weighted by GDP shares). Due to the log non-linearity, we cannot compute contributions to the log-scaled index.
 
+
+![Contributions](outputs/figures/index/fragmentation_index/raw_dispersion/contributions_sg_lasso_total.png)
+
+
 ### Fiscal Fragmentation Index
-![Fragmentation Index](outputs/figures/index/fragmentation_index/euro_fragmentation_index_sg_lasso_total.png)
+![Fragmentation Index](outputs/figures/index/fragmentation_index/fragmentation_index_sg_lasso_total.png)
 
 
 ---
@@ -365,7 +369,7 @@ The interaction coefficient path **γ_h** measures how the amplification effect 
 - **High fragmentation** (+1 s.d.)
 
 > The conditional IRFs show that under **high fragmentation**, the contractionary effect of a monetary policy tightening surprise is **substantially larger and more persistent** than under low fragmentation, with the divergence peaking around 6–12 months after the shock.
-
+![Conditional IRFs](outputs/figures/monetary_policy/conditional_irfs.png)
 ---
 
 ## 7. Outputs Reference
