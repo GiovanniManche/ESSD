@@ -5,6 +5,7 @@ baing <- function(X, kmax, jj) {
   # dataset using one of three information criteria specified by the user.
   # The user also specifies the maximum number of factors to be selected.
   #
+  # Authour : Anna SIMONI - Macroeconometrics and Machine Learning course
   # -------------------------------------------------------------------------
   # INPUTS
   #           X       = dataset (one series per column)
